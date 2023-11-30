@@ -2,6 +2,7 @@ package bo.edu.ucb.backend.dto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -17,6 +18,15 @@ public class UserDTO {
     private String firstName;
     private String lastName;
     private String bio;
+    private String imageLink;
+    @Column(name = "TX_USER", length = 255)
+    private String txUser;
+
+    @Column(name = "TX_DATE")
+    private LocalDateTime txDate;
+
+    @Column(name = "TX_HOST", length = 255)
+    private String txHost;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "userDTO")
     @JsonIgnore
@@ -36,13 +46,17 @@ public class UserDTO {
 
     }
 
-    public UserDTO(Long id, String username, String email, String firstName, String lastName, String bio, Set<UserRolDTO> userRoleDTOS, Set<CommentDTO> commentDTOS, Set<CommentDTO> ratings) {
+    public UserDTO(Long id, String username, String email, String firstName, String lastName, String bio, String imageLink, String txUser, LocalDateTime txDate, String txHost, Set<UserRolDTO> userRoleDTOS, Set<CommentDTO> commentDTOS, Set<CommentDTO> ratings) {
         this.id = id;
         this.username = username;
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
         this.bio = bio;
+        this.imageLink = imageLink;
+        this.txUser = txUser;
+        this.txDate = txDate;
+        this.txHost = txHost;
         this.userRoleDTOS = userRoleDTOS;
         this.commentDTOS = commentDTOS;
         this.ratings = ratings;
@@ -96,19 +110,51 @@ public class UserDTO {
         this.bio = bio;
     }
 
-    public Set<UserRolDTO> getUsuarioRoles() {
+    public String getImageLink() {
+        return imageLink;
+    }
+
+    public void setImageLink(String imageLink) {
+        this.imageLink = imageLink;
+    }
+
+    public String getTxUser() {
+        return txUser;
+    }
+
+    public void setTxUser(String txUser) {
+        this.txUser = txUser;
+    }
+
+    public LocalDateTime getTxDate() {
+        return txDate;
+    }
+
+    public void setTxDate(LocalDateTime txDate) {
+        this.txDate = txDate;
+    }
+
+    public String getTxHost() {
+        return txHost;
+    }
+
+    public void setTxHost(String txHost) {
+        this.txHost = txHost;
+    }
+
+    public Set<UserRolDTO> getUserRoleDTOS() {
         return userRoleDTOS;
     }
 
-    public void setUsuarioRoles(Set<UserRolDTO> userRoleDTOS) {
+    public void setUserRoleDTOS(Set<UserRolDTO> userRoleDTOS) {
         this.userRoleDTOS = userRoleDTOS;
     }
 
-    public Set<CommentDTO> getComments() {
+    public Set<CommentDTO> getCommentDTOS() {
         return commentDTOS;
     }
 
-    public void setComments(Set<CommentDTO> commentDTOS) {
+    public void setCommentDTOS(Set<CommentDTO> commentDTOS) {
         this.commentDTOS = commentDTOS;
     }
 
@@ -122,15 +168,19 @@ public class UserDTO {
 
     @Override
     public String toString() {
-        return "Usuario{" +
+        return "UserDTO{" +
                 "id=" + id +
                 ", username='" + username + '\'' +
                 ", email='" + email + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", bio='" + bio + '\'' +
-                ", usuarioRoles=" + userRoleDTOS +
-                ", comments=" + commentDTOS +
+                ", imageLink='" + imageLink + '\'' +
+                ", txUser='" + txUser + '\'' +
+                ", txDate=" + txDate +
+                ", txHost='" + txHost + '\'' +
+                ", userRoleDTOS=" + userRoleDTOS +
+                ", commentDTOS=" + commentDTOS +
                 ", ratings=" + ratings +
                 '}';
     }

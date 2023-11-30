@@ -2,6 +2,9 @@ package bo.edu.ucb.backend.dto;
 
 
 import jakarta.persistence.*;
+
+import java.time.LocalDateTime;
+
 @Entity
 
 public class MovieGenreDTO {
@@ -12,6 +15,15 @@ public class MovieGenreDTO {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idMovieGenre;
 
+    @Column(name = "TX_USER", length = 255)
+    private String txUser;
+
+    @Column(name = "TX_DATE")
+    private LocalDateTime txDate;
+
+    @Column(name = "TX_HOST", length = 255)
+    private String txHost;
+
     @ManyToOne(fetch = FetchType.EAGER)
     private MovieDTO movieDTO;
 
@@ -21,8 +33,11 @@ public class MovieGenreDTO {
     public MovieGenreDTO() {
     }
 
-    public MovieGenreDTO(Long idMovieGenre, MovieDTO movieDTO, GenreDTO genreDTO) {
+    public MovieGenreDTO(Long idMovieGenre, String txUser, LocalDateTime txDate, String txHost, MovieDTO movieDTO, GenreDTO genreDTO) {
         this.idMovieGenre = idMovieGenre;
+        this.txUser = txUser;
+        this.txDate = txDate;
+        this.txHost = txHost;
         this.movieDTO = movieDTO;
         this.genreDTO = genreDTO;
     }
@@ -35,28 +50,55 @@ public class MovieGenreDTO {
         this.idMovieGenre = idMovieGenre;
     }
 
-    public MovieDTO getMovie() {
+    public String getTxUser() {
+        return txUser;
+    }
+
+    public void setTxUser(String txUser) {
+        this.txUser = txUser;
+    }
+
+    public LocalDateTime getTxDate() {
+        return txDate;
+    }
+
+    public void setTxDate(LocalDateTime txDate) {
+        this.txDate = txDate;
+    }
+
+    public String getTxHost() {
+        return txHost;
+    }
+
+    public void setTxHost(String txHost) {
+        this.txHost = txHost;
+    }
+
+    public MovieDTO getMovieDTO() {
         return movieDTO;
     }
 
-    public void setMovie(MovieDTO movieDTO) {
+    public void setMovieDTO(MovieDTO movieDTO) {
         this.movieDTO = movieDTO;
     }
 
-    public GenreDTO getGenre() {
+    public GenreDTO getGenreDTO() {
         return genreDTO;
     }
 
-    public void setGenre(GenreDTO genreDTO) {
+    public void setGenreDTO(GenreDTO genreDTO) {
         this.genreDTO = genreDTO;
     }
 
     @Override
     public String toString() {
-        return "MovieGenre{" +
+        return "MovieGenreDTO{" +
                 "idMovieGenre=" + idMovieGenre +
-                ", movie=" + movieDTO +
-                ", genre=" + genreDTO +
+                ", txUser='" + txUser + '\'' +
+                ", txDate=" + txDate +
+                ", txHost='" + txHost + '\'' +
+                ", movieDTO=" + movieDTO +
+                ", genreDTO=" + genreDTO +
                 '}';
     }
 }

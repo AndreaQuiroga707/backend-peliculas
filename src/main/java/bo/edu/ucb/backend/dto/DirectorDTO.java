@@ -1,4 +1,5 @@
 package bo.edu.ucb.backend.dto;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -14,7 +15,14 @@ public class DirectorDTO {
 
     private String directorName;
 
+    @Column(name = "TX_USER", length = 255)
+    private String txUser;
 
+    @Column(name = "TX_DATE")
+    private LocalDateTime txDate;
+
+    @Column(name = "TX_HOST", length = 255)
+    private String txHost;
 
     @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "directorDTO")
     private Set<MovieDirectorDTO> movieDirectorDTOS = new HashSet<>();
@@ -22,9 +30,12 @@ public class DirectorDTO {
     public DirectorDTO() {
     }
 
-    public DirectorDTO(Long directorId, String directorName, Set<MovieDirectorDTO> movieDirectorDTOS) {
+    public DirectorDTO(Long directorId, String directorName, String txUser, LocalDateTime txDate, String txHost, Set<MovieDirectorDTO> movieDirectorDTOS) {
         this.directorId = directorId;
         this.directorName = directorName;
+        this.txUser = txUser;
+        this.txDate = txDate;
+        this.txHost = txHost;
         this.movieDirectorDTOS = movieDirectorDTOS;
     }
 
@@ -44,20 +55,47 @@ public class DirectorDTO {
         this.directorName = directorName;
     }
 
-    public Set<MovieDirectorDTO> getMovieDirectors() {
+    public String getTxUser() {
+        return txUser;
+    }
+
+    public void setTxUser(String txUser) {
+        this.txUser = txUser;
+    }
+
+    public LocalDateTime getTxDate() {
+        return txDate;
+    }
+
+    public void setTxDate(LocalDateTime txDate) {
+        this.txDate = txDate;
+    }
+
+    public String getTxHost() {
+        return txHost;
+    }
+
+    public void setTxHost(String txHost) {
+        this.txHost = txHost;
+    }
+
+    public Set<MovieDirectorDTO> getMovieDirectorDTOS() {
         return movieDirectorDTOS;
     }
 
-    public void setMovieDirectors(Set<MovieDirectorDTO> movieDirectorDTOS) {
+    public void setMovieDirectorDTOS(Set<MovieDirectorDTO> movieDirectorDTOS) {
         this.movieDirectorDTOS = movieDirectorDTOS;
     }
 
     @Override
     public String toString() {
-        return "Director{" +
+        return "DirectorDTO{" +
                 "directorId=" + directorId +
                 ", directorName='" + directorName + '\'' +
-                ", movieDirectors=" + movieDirectorDTOS +
+                ", txUser='" + txUser + '\'' +
+                ", txDate=" + txDate +
+                ", txHost='" + txHost + '\'' +
+                ", movieDirectorDTOS=" + movieDirectorDTOS +
                 '}';
     }
 }

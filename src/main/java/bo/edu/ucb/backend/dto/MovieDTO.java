@@ -3,7 +3,8 @@ package bo.edu.ucb.backend.dto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
         import jakarta.persistence.*;
 
-        import java.util.HashSet;
+import java.time.LocalDateTime;
+import java.util.HashSet;
         import java.util.Set;
 @Entity
 @Table(name = "MOVIE")
@@ -15,6 +16,15 @@ public class MovieDTO {
     private String title;
     @Column(name = "SYNOPSIS", length = 600)
     private String synopsis;
+
+    @Column(name = "TX_USER", length = 255)
+    private String txUser;
+
+    @Column(name = "TX_DATE")
+    private LocalDateTime txDate;
+
+    @Column(name = "TX_HOST", length = 255)
+    private String txHost;
 
     @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER,mappedBy = "movieDTO")
     @JsonIgnore
@@ -33,10 +43,13 @@ public class MovieDTO {
     public MovieDTO() {
     }
 
-    public MovieDTO(Long movieId, String title, String synopsis, Set<MovieDirectorDTO> movieDirectorDTOS, Set<CommentDTO> commentDTOS, Set<CommentDTO> ratings, Set<CommentDTO> movieGenres) {
+    public MovieDTO(Long movieId, String title, String synopsis, String txUser, LocalDateTime txDate, String txHost, Set<MovieDirectorDTO> movieDirectorDTOS, Set<CommentDTO> commentDTOS, Set<CommentDTO> ratings, Set<CommentDTO> movieGenres) {
         this.movieId = movieId;
         this.title = title;
         this.synopsis = synopsis;
+        this.txUser = txUser;
+        this.txDate = txDate;
+        this.txHost = txHost;
         this.movieDirectorDTOS = movieDirectorDTOS;
         this.commentDTOS = commentDTOS;
         this.ratings = ratings;
@@ -67,19 +80,43 @@ public class MovieDTO {
         this.synopsis = synopsis;
     }
 
-    public Set<MovieDirectorDTO> getMovieDirectors() {
+    public String getTxUser() {
+        return txUser;
+    }
+
+    public void setTxUser(String txUser) {
+        this.txUser = txUser;
+    }
+
+    public LocalDateTime getTxDate() {
+        return txDate;
+    }
+
+    public void setTxDate(LocalDateTime txDate) {
+        this.txDate = txDate;
+    }
+
+    public String getTxHost() {
+        return txHost;
+    }
+
+    public void setTxHost(String txHost) {
+        this.txHost = txHost;
+    }
+
+    public Set<MovieDirectorDTO> getMovieDirectorDTOS() {
         return movieDirectorDTOS;
     }
 
-    public void setMovieDirectors(Set<MovieDirectorDTO> movieDirectorDTOS) {
+    public void setMovieDirectorDTOS(Set<MovieDirectorDTO> movieDirectorDTOS) {
         this.movieDirectorDTOS = movieDirectorDTOS;
     }
 
-    public Set<CommentDTO> getComments() {
+    public Set<CommentDTO> getCommentDTOS() {
         return commentDTOS;
     }
 
-    public void setComments(Set<CommentDTO> commentDTOS) {
+    public void setCommentDTOS(Set<CommentDTO> commentDTOS) {
         this.commentDTOS = commentDTOS;
     }
 
@@ -101,12 +138,15 @@ public class MovieDTO {
 
     @Override
     public String toString() {
-        return "Movie{" +
+        return "MovieDTO{" +
                 "movieId=" + movieId +
                 ", title='" + title + '\'' +
                 ", synopsis='" + synopsis + '\'' +
-                ", movieDirectors=" + movieDirectorDTOS +
-                ", comments=" + commentDTOS +
+                ", txUser='" + txUser + '\'' +
+                ", txDate=" + txDate +
+                ", txHost='" + txHost + '\'' +
+                ", movieDirectorDTOS=" + movieDirectorDTOS +
+                ", commentDTOS=" + commentDTOS +
                 ", ratings=" + ratings +
                 ", movieGenres=" + movieGenres +
                 '}';
