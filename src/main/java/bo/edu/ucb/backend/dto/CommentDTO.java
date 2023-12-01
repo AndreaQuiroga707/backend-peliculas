@@ -12,6 +12,12 @@ public class CommentDTO {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long commentId;
 
+    @Column
+    private String content;
+
+    @Column
+    private LocalDateTime date;
+
     @Column(name = "TX_USER", length = 255)
     private String txUser;
 
@@ -31,8 +37,10 @@ public class CommentDTO {
     public CommentDTO() {
     }
 
-    public CommentDTO(Long commentId, String txUser, LocalDateTime txDate, String txHost, UserDTO userDTO, MovieDTO movieDTO) {
+    public CommentDTO(Long commentId, String content, LocalDateTime date, String txUser, LocalDateTime txDate, String txHost, UserDTO userDTO, MovieDTO movieDTO) {
         this.commentId = commentId;
+        this.content = content;
+        this.date = date;
         this.txUser = txUser;
         this.txDate = txDate;
         this.txHost = txHost;
@@ -46,6 +54,22 @@ public class CommentDTO {
 
     public void setCommentId(Long commentId) {
         this.commentId = commentId;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public LocalDateTime getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDateTime date) {
+        this.date = date;
     }
 
     public String getTxUser() {
@@ -92,6 +116,8 @@ public class CommentDTO {
     public String toString() {
         return "CommentDTO{" +
                 "commentId=" + commentId +
+                ", content='" + content + '\'' +
+                ", date=" + date +
                 ", txUser='" + txUser + '\'' +
                 ", txDate=" + txDate +
                 ", txHost='" + txHost + '\'' +
